@@ -1,6 +1,7 @@
 # xlsx
 struct save as xlsx
 
+```go
 package main
 
 import (
@@ -27,3 +28,5 @@ func main() {
 	x1.Rows = xlsx.GetRows(es)
 	x1.ToXlsx()
 }
+
+```
