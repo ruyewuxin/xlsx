@@ -28,9 +28,12 @@ func GetHeaders(s []interface{}) (headers []interface{}) {
 	xt := reflect.TypeOf(s[0])
 
 	for i := 0; i < xt.NumField(); i++ {
+		name := xt.Field(i).Name
 		head, ok := xt.Field(i).Tag.Lookup("xlsx")
 		if ok {
 			headers = append(headers, head)
+		} else {
+			headers = append(headers, name)
 		}
 	}
 	return headers
@@ -40,16 +43,12 @@ func GetRows(s []interface{}) (rows [][]interface{}) {
 	if len(s) == 0 {
 		return rows
 	}
-	xt := reflect.TypeOf(s[0])
 
 	for _, e := range s {
 		cells := []interface{}{}
 		xv := reflect.ValueOf(e)
 		for i := 0; i < xv.NumField(); i++ {
-			_, ok := xt.Field(i).Tag.Lookup("xlsx")
-			if ok {
-				cells = append(cells, xv.Field(i).Interface())
-			}
+			cells = append(cells, xv.Field(i).Interface())
 		}
 		rows = append(rows, cells)
 	}
