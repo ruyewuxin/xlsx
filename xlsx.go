@@ -82,7 +82,7 @@ func (x Xlsx) ToXlsx() {
 		fmt.Println(err)
 	}
 
-	for i := 0; i <= len(rows)-1; i++ {
+	for i := 0; i < len(rows); i++ {
 		row := rows[i]
 		rowID := i + 2
 		cell, _ := excelize.CoordinatesToCellName(1, rowID)
